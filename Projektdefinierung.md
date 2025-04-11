@@ -3,6 +3,7 @@
 ## Must-have features
 
 - 'Show devices in network' - Zeigt alle Geräte im Netzwerk
+- 'Scan for devices' - Scan um Geräte im Netzwerk anzuzeigen
 - 'Add device' - Manuelles hinzufügen von Geräten zum Netzwerk
 - 'Auto ping' - Um den Online/Offline status zu updaten
 - 'Send ping' - Manuelle methode um Online/Offline status abzufragen
