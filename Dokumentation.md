@@ -7,6 +7,7 @@
 - James Montemagno - Youtube
 
 ### How to scan Network for devices?
+
 - Google + ChatGPT
 - https://de.wikipedia.org/wiki/ARP-Cache 
 - ARP Cache seems likely to be the worse decision to check which devices are connected to my network
