@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NetworkMonitor.MainPage"
              xmlns:model="clr-namespace:NetworkMonitor.Models">
-
+    <!--View for MVVM -->
     <CollectionView>
         <CollectionView.ItemsSource>
             <x:Array Type="{x:Type model:NetworkDevices}">

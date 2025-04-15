@@ -1,13 +1,14 @@
 ﻿using System.ComponentModel;
 
+//Model for MVVM
+
 namespace NetworkMonitor.Models
 {
     public class NetworkDevices : INotifyPropertyChanged
     {
-        public string DeviceName { get; set; }
         public int DeviceID { get; set; }
-        public int IPAdress { get; set; }
-        public string MACAdress { get; set; }
+        public string IPAddress { get; set; }
+        
 
         bool _isOnline;
 

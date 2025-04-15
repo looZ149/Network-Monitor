@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using NetworkMonitor.Functions;
+
 
 namespace NetworkMonitor;
 
@@ -15,10 +17,16 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
+		ScanNetwork scan = new();
+		scan.GetBaseIP();
+        
+
+
 #if DEBUG
-		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
 
 		return builder.Build();
+
 	}
 }
