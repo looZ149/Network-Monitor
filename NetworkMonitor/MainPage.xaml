@@ -1,18 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="NetworkMonitor.MainPage"
-             xmlns:model="clr-namespace:NetworkMonitor.Models">
-    <!--View for MVVM -->
-    <CollectionView>
-        <CollectionView.ItemsSource>
-            <x:Array Type="{x:Type model:NetworkDevices}">
-                <model:NetworkDevices 
-                    
-                    />
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"  
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+            x:Class="NetworkMonitor.MainPage"  
+            xmlns:vm="clr-namespace:NetworkMonitor.ViewModels"  
+            xmlns:model="clr-namespace:NetworkMonitor.Models">  
+   <!--View for MVVM -->
+    <ContentPage.BindingContext>
+        <vm:MainViewModel />
+    </ContentPage.BindingContext>
 
-            </x:Array>
-        </CollectionView.ItemsSource>
-    </CollectionView>
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
 
+            <Label Text="Devices in Network" FontSize="24" HorizontalOptions="Center" />
+            <Button Text="Ping devices" Command="{Binding PingAllCommand}" HorizontalOptions="Start" />
+        
+            <CollectionView ItemsSource="{Binding Devices}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Name}" FontAttributes="Bold" />
+                                <Label Text="{Binding IPAddress}" />
+                                <Label Text="{Binding IsOnline, StringFormat='Status: {0}'}"
+                                       TextColor="{Binding IsOnline, Converter={StaticResource BoolToColorConverter}}" />
+                            </VerticalStackLayout>
+                       
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

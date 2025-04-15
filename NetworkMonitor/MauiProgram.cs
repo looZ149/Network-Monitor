@@ -18,7 +18,7 @@ public static class MauiProgram
 			});
 
 		ScanNetwork scan = new();
-		scan.GetBaseIP();
+		scan.GetDevices();
         
 
 

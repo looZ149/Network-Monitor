@@ -33,11 +33,16 @@
 - can run functions in the Background, while still navigating the UI 
 
 ### Write the function to iterate trough the local network and send pings to check for devices
-##Resources
+## Resources
 - https://learn.microsoft.com/en-us/dotnet/api/system.net.networkinformation.ping?view=net-9.0
 - https://learn.microsoft.com/de-de/dotnet/csharp/language-reference/statements/exception-handling-statements
 	-> Need try-catch because SendPingAsync() throws exceptions on errors
 
 -> Save every device in a ObserveableObject so we can use INotifyPropertyChange for the Online Status
 	
-### 
+### Day 2 - UI - Bugfixing the Lists cause they do not get the data properly
+
+- Noticed while working with the UI that the Lists doesnt work properly 
+- Need to rewrite the function for scanning the network
+	-> Need to call it in MainViewModel so i get the data there
+		-> Need to return a list of strings of type NetworkDevices

@@ -12,7 +12,12 @@ namespace NetworkMonitor.ViewModels
     public class MainViewModel
     {
         //Dynamic list for automatic updating trough MVVM
-        public ObservableCollection<NetworkDevices> Devices { get; set; } = new();
+        //How do i populate this fuck without a foreach??
+        
+
+        public ObservableCollection<NetworkDevices> Devices = new();
+        ScanNetwork scanNetwork = new ScanNetwork();
+        List<NetworkDevices> devicesOnline = new();
 
         //Command to bind to a Button (Command={Binding PingAllCommand})
         public ICommand PingAllCommand { get; }
@@ -20,6 +25,8 @@ namespace NetworkMonitor.ViewModels
         public MainViewModel()
         {
 
+            devicesOnline = scanNetwork.ScanLocalNetwork(scanNetwork.baseip);
+            Devices = devicesOnline.Select(item => new NetworkDevices(item)).ToList();
             PingAllCommand = new Command(async () => await PingAllDevices());
         }
 
