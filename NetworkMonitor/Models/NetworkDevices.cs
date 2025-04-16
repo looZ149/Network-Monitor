@@ -6,6 +6,7 @@ namespace NetworkMonitor.Models
 {
     public class NetworkDevices : INotifyPropertyChanged
     {
+
         public int DeviceID { get; set; }
         public string IPAddress { get; set; }
         

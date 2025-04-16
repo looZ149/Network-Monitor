@@ -1,4 +1,5 @@
 ﻿using NetworkMonitor.Models;
+using System.Collections.ObjectModel;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
@@ -28,9 +29,9 @@ namespace NetworkMonitor.Functions
             throw new Exception("Couldnt find local ip"); // In case we cant find the local ip, throw exception with a msg, still continue
         }
 
-        public List<NetworkDevices> ScanLocalNetwork(string baseip)
+        public ObservableCollection<NetworkDevices> ScanLocalNetwork(string baseip)
         {
-            List<NetworkDevices> devicesOnline = new();
+            ObservableCollection<NetworkDevices> devicesOnline = new();
             var tasks = new List<Task>(); // Create a list of Tasks to ping multiple IP's at once
             using Ping ping = new Ping();
 

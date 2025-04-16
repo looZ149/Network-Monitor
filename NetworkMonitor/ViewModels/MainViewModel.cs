@@ -16,17 +16,15 @@ namespace NetworkMonitor.ViewModels
         
 
         public ObservableCollection<NetworkDevices> Devices = new();
-        ScanNetwork scanNetwork = new ScanNetwork();
-        List<NetworkDevices> devicesOnline = new();
+        ScanNetwork scanNetwork = new();
 
         //Command to bind to a Button (Command={Binding PingAllCommand})
         public ICommand PingAllCommand { get; }
 
         public MainViewModel()
         {
-
-            devicesOnline = scanNetwork.ScanLocalNetwork(scanNetwork.baseip);
-            Devices = devicesOnline.Select(item => new NetworkDevices(item)).ToList();
+            scanNetwork.GetDevices();
+            Devices = scanNetwork.ScanLocalNetwork(scanNetwork.baseip);
             PingAllCommand = new Command(async () => await PingAllDevices());
         }
 

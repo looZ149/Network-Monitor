@@ -8,30 +8,32 @@
     <ContentPage.BindingContext>
         <vm:MainViewModel />
     </ContentPage.BindingContext>
-
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
-
-            <Label Text="Devices in Network" FontSize="24" HorizontalOptions="Center" />
-            <Button Text="Ping devices" Command="{Binding PingAllCommand}" HorizontalOptions="Start" />
-        
-            <CollectionView ItemsSource="{Binding Devices}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        
-                            <VerticalStackLayout>
-                                <Label Text="{Binding Name}" FontAttributes="Bold" />
-                                <Label Text="{Binding IPAddress}" />
-                                <Label Text="{Binding IsOnline, StringFormat='Status: {0}'}"
-                                       TextColor="{Binding IsOnline, Converter={StaticResource BoolToColorConverter}}" />
-                            </VerticalStackLayout>
-                       
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-
-            
-
-        </VerticalStackLayout>
-    </ScrollView>
+   
+    <Grid RowDefinitions="100 ,Auto, *"
+          ColumnDefinitions="Auto, .25*"
+         
+          BackgroundColor="Black">
+        <Image Grid.Column="2"
+               Source="dotnet_bot.png"/>
+        <Button Text="Ping devices" 
+                Grid.Row="2"
+                HeightRequest="50"
+                WidthRequest="*"
+                Margin="-5, 0, 0, 450"
+                Padding="10"/>
+        <Label Text="Network Devices"
+               Grid.Row="1"
+               Grid.Column="2"
+               FontSize="28"
+               HorizontalOptions="Center"
+               FontAttributes="Bold"
+               TextColor="DeepSkyBlue"
+               BackgroundColor="Black"/>
+        <Border Grid.Row="3" 
+                Grid.Column="2"
+                Padding="10"/>
+        <Border Grid.Row="2" 
+                />
+    </Grid>
+    
 </ContentPage>
