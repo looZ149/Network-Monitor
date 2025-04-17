@@ -15,7 +15,7 @@ namespace NetworkMonitor.ViewModels
         //How do i populate this fuck without a foreach??
         
 
-        public ObservableCollection<NetworkDevices> Devices = new();
+        public ObservableCollection<NetworkDevices> Devices { get; set; } = new();
         ScanNetwork scanNetwork = new();
 
         //Command to bind to a Button (Command={Binding PingAllCommand})
@@ -25,6 +25,8 @@ namespace NetworkMonitor.ViewModels
         {
             scanNetwork.GetDevices();
             Devices = scanNetwork.ScanLocalNetwork(scanNetwork.baseip);
+            Devices.Add(new NetworkDevices { DeviceID = 0, IPAddress = "192.168.1.120" });
+            Devices.Add(new NetworkDevices { DeviceID = 1, IPAddress = "192.168.1.123" });
             PingAllCommand = new Command(async () => await PingAllDevices());
         }
 

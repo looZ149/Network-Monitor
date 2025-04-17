@@ -49,7 +49,7 @@ namespace NetworkMonitor.Functions
                             //Lock the list so we ensure only one Task adds his result to it.
                             lock (devicesOnline)
                             {
-                                devicesOnline.Add(new NetworkDevices { IPAddress = ip });
+                                devicesOnline.Add(new NetworkDevices { IPAddress = ip, IsOnline = true });
                             }
 
                         }

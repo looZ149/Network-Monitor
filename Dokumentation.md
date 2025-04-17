@@ -46,3 +46,11 @@
 - Need to rewrite the function for scanning the network
 	-> Need to call it in MainViewModel so i get the data there
 		-> Need to return a list of strings of type NetworkDevices
+
+### Day 3 - Work on the UI
+## Resources
+- https://www.youtube.com/@dotnet
+
+### Day 4 - Work on the UI + Code
+
+
