@@ -23,11 +23,16 @@ namespace NetworkMonitor.ViewModels
 
         public MainViewModel()
         {
-            scanNetwork.GetDevices();
-            Devices = scanNetwork.ScanLocalNetwork(scanNetwork.baseip);
+            scanNetwork.GetIP();
+            GetDevices();
             Devices.Add(new NetworkDevices { DeviceID = 0, IPAddress = "192.168.1.120" });
             Devices.Add(new NetworkDevices { DeviceID = 1, IPAddress = "192.168.1.123" });
             PingAllCommand = new Command(async () => await PingAllDevices());
+        }
+
+        async Task GetDevices()
+        {
+            Devices = await scanNetwork.ScanLocalNetwork(scanNetwork.baseip);
         }
 
         public async Task<bool> Ping(string ip) //function to send the actual ping and wait for a reply
