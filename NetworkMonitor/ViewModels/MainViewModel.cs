@@ -11,49 +11,45 @@ namespace NetworkMonitor.ViewModels
 {
     public class MainViewModel
     {
-        //Dynamic list for automatic updating trough MVVM
-        //How do i populate this fuck without a foreach??
-        
-
         public ObservableCollection<NetworkDevices> Devices { get; set; } = new();
         ScanNetwork scanNetwork = new();
 
-        //Command to bind to a Button (Command={Binding PingAllCommand})
         public ICommand PingAllCommand { get; }
+        
 
         public MainViewModel()
         {
             scanNetwork.GetIP();
-            GetDevices();
-            Devices.Add(new NetworkDevices { DeviceID = 0, IPAddress = "192.168.1.120" });
-            Devices.Add(new NetworkDevices { DeviceID = 1, IPAddress = "192.168.1.123" });
+            Devices = Task.Run(() => scanNetwork.ScanLocalNetwork(scanNetwork.baseip)).Result; //Need to Task.Run it and retrieve the result like this,
+                                                                                               //So we get it as actual ObservableCollection back
+                                                                                               //else we get an converting error
             PingAllCommand = new Command(async () => await PingAllDevices());
         }
 
-        async Task GetDevices()
-        {
-            Devices = await scanNetwork.ScanLocalNetwork(scanNetwork.baseip);
+
+
+        public void AddDevice() 
+        { 
+            //Create a new window??
+            //Put a Label under it which takes the Input and adds it to Devices?
         }
 
-        public async Task<bool> Ping(string ip) //function to send the actual ping and wait for a reply
+        public async Task PingDeviceID(int deviceID)
         {
-            try
-            {
-                using Ping ping = new();
-                var reply = await ping.SendPingAsync(ip, 1000); //Each second, send a ping
-                return reply.Status == IPStatus.Success;
-            }
-            catch
-            {
-                return false;
-            }
+            //Creat a new window??
+            //Put a label under it which takes the Input and pings the device?
         }
 
         public async Task PingAllDevices()
         {
             foreach (var device in Devices)
             {
-                device.IsOnline = await Ping(device.IPAddress); // Call the function and wait for the result
+                using Ping ping = new Ping();
+                var reply = await ping.SendPingAsync(device.IPAddress, 100);
+                if(reply.Status != IPStatus.Success)
+                {
+                    device.IsOnline = false;
+                }
             }
         }
     }

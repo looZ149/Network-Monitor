@@ -59,3 +59,5 @@ Without a breakpoint, it doesnt work at all. (Probably need to add some sort of 
 Got another weird bug with Converting.
 ## Resources
 - https://learn.microsoft.com/en-us/answers/questions/1309181/how-to-fix-a-cs0029-error-in-net-maui-app
+- https://learn.microsoft.com/en-us/dotnet/api/system.net.networkinformation.ping?view=net-9.0
+- Couldnt figure it out so i asked Copilot. 

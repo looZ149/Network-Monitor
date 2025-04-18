@@ -40,7 +40,7 @@
                                                          Padding="10">
                                             <Label Text="{Binding IPAddress}" FontAttributes="Bold" TextColor="DeepSkyBlue"/>
                                             <Label Text="{Binding DeviceID, StringFormat='DeviceID: {0}'}" TextColor="DeepSkyBlue" />
-                                            <Label Text="{Binding IsOnline, StringFormat='Status: {0}'}" TextColor="DeepSkyBlue" />
+                                            <Label Text="{Binding IsOnline, StringFormat='Online: {0}'}" TextColor="DeepSkyBlue" />
                                     </VerticalStackLayout>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>

@@ -32,49 +32,35 @@ namespace NetworkMonitor.Functions
         //Quantum code error
         //Run code with a breakpoint -> code works - Sometimes throws an error tho?
         //Run code without a breakpoint -> code doesnt work??
-
-        //public ObservableCollection<NetworkDevices> ScanLocalNetwork(string baseip)
-        //{
-        //    using Ping ping = new Ping();
-        //    ObservableCollection<NetworkDevices> devicesOnline = new();
-
-        //    for (int i = 0; i < 255; i++)
-        //    {
-        //        string ip = $"{baseip}.{i}";
-        //        var reply = await ping.SendPingAsync(ip, 100);
-        //        if (reply.Status == IPStatus.Success)
-        //        {
-        //            devicesOnline.Add(new NetworkDevices { IPAddress = ip, IsOnline = true });
-        //        }
-        //    }
-
-        //    return devicesOnline;
-        //}
+        //Thanks copilot
 
         public async Task<ObservableCollection<NetworkDevices>> ScanLocalNetwork(string baseip)
         {
+            int count = 0;
             var devicesOnline = new ObservableCollection<NetworkDevices>();
             var tasks = new List<Task>(); // Create a list of Tasks to ping multiple IP's at once
-            using Ping ping = new Ping(); // Apparently not thread-safe, while its used by multiple tasks -> could produce the "Quantum code" error here
-
+                                          //Ping is not "thread safe" which leads to unexpected behavior. Means it can not be safely used by multiple threads
+                                          //Every task need to use their own Ping function to make it work properly
+                                          //Since its a share Instance of the ping, its causing race conditions because every task executes it on their own
+            // ^ doesnt work
             for (int i = 0; i < 255; i++)
             {
                 string ip = $"{baseip}.{i}";
-                tasks.Add(Task.Run(async () =>
+                tasks.Add(Task.Run(async () => //Run multiple tasks at the same time(async)
                 {
                     try
                     {
-
-                        var reply = await ping.SendPingAsync(ip, 100);
+                        using Ping ping = new Ping();
+                        var reply = await ping.SendPingAsync(ip, 100); //If we do ping.Send it takes ages, therefor we use SendPingAsync
                         if (reply.Status == IPStatus.Success)
                         {
                             
                             //Lock the list so we ensure only one Task adds his result to it.
                             lock (devicesOnline)
                             {
-                                devicesOnline.Add(new NetworkDevices { IPAddress = ip, IsOnline = true });
+                                devicesOnline.Add(new NetworkDevices { IPAddress = ip, IsOnline = true, DeviceID = count });
                             }
-
+                            count++;
                         }
                     }
                     catch
