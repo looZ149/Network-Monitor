@@ -53,4 +53,9 @@
 
 ### Day 4 - Work on the UI + Code
 
-
+### Day 5 - Fixing code
+Encountered a weird bug: When debugging with a breakpoint, code works as intendet.
+Without a breakpoint, it doesnt work at all. (Probably need to add some sort of timeout/sleep into the function?)
+Got another weird bug with Converting.
+## Resources
+- https://learn.microsoft.com/en-us/answers/questions/1309181/how-to-fix-a-cs0029-error-in-net-maui-app
