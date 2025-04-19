@@ -52,16 +52,36 @@
                                HeightRequest="30"  
                                Command="{Binding PingAllCommand}"  
                                BackgroundColor="DeepSkyBlue"  
-                               WidthRequest="120" />  
-                       <Button Text="Add Device"  
+                               WidthRequest="120" />
+            
+            <Entry x:Name="DeviceIP" Background="LightSkyBlue"
+                  Text="{Binding DeviceIP}"
+                  Placeholder="Device IP"
+                   PlaceholderColor="Black"
+                   VerticalTextAlignment="Center"/>
+            <Button Text="Add Device IP"  
                                HeightRequest="30"  
                                BackgroundColor="DeepSkyBlue"  
-                               WidthRequest="120" />  
-                       <Button Text="Ping DeviceID"  
-                               HeightRequest="30"  
-                               BackgroundColor="DeepSkyBlue"  
-                               WidthRequest="120" />  
-                   </VerticalStackLayout>  
-               </Grid>  
+                               WidthRequest="120" 
+                               Command="{Binding AddDeviceCommand}"/>
 
+            <Entry x:Name="DeviceID"
+                   Text="{Binding DeviceID}"
+                   Background="LightSkyBlue" 
+                   Placeholder="Device ID"
+                   PlaceholderColor="Black"
+                   VerticalTextAlignment="Center"/>
+            <Button Text="Ping DeviceID"  
+                                HeightRequest="30"  
+                                BackgroundColor="DeepSkyBlue"  
+                                WidthRequest="120" 
+                    Command="{Binding PingDeviceIDCommand}"/>
+            <Button Text="Rescan"
+                    HeightRequest="30"
+                    BackgroundColor="DeepSkyBlue"
+                    WidthRequest="120"
+                    Command="{Binding RescanCommand}"/>
+
+        </VerticalStackLayout>  
+               </Grid>  
 </ContentPage>

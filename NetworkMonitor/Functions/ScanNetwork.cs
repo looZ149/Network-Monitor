@@ -12,6 +12,7 @@ namespace NetworkMonitor.Functions
     {
         public string? localip;
         public string? baseip;
+        public int count = 0;
 
         //dont need as async task cuz we will run this function on every start of the App
         //should be rather fast + we execute it on the start so.. should be fine?
@@ -36,7 +37,7 @@ namespace NetworkMonitor.Functions
 
         public async Task<ObservableCollection<NetworkDevices>> ScanLocalNetwork(string baseip)
         {
-            int count = 0;
+            
             var devicesOnline = new ObservableCollection<NetworkDevices>();
             var tasks = new List<Task>(); // Create a list of Tasks to ping multiple IP's at once
                                           //Ping is not "thread safe" which leads to unexpected behavior. Means it can not be safely used by multiple threads
