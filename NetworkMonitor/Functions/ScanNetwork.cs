@@ -1,5 +1,6 @@
 ﻿using NetworkMonitor.Models;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
@@ -13,6 +14,7 @@ namespace NetworkMonitor.Functions
         public string? localip;
         public string? baseip;
         public int count = 0;
+        
 
         //dont need as async task cuz we will run this function on every start of the App
         //should be rather fast + we execute it on the start so.. should be fine?
@@ -79,6 +81,29 @@ namespace NetworkMonitor.Functions
         {
             localip = LocalIP();
             baseip = string.Join('.', localip.Split('.').Take(3));
+        }
+
+        public async Task<string> MacAddress(List<string> ipAddresses)
+        {
+            var macAddresses = new List<string>();
+            var tasks = new List<Task>();
+            Process process = new Process();
+
+            //Should i really open the arp cache for EVERY ip? Probably dumb and unnecessary?
+            //dump arp cache once, and look trough the output for each ip sounds better?
+
+           
+
+            foreach(string ip in ipAddresses)
+            {
+                tasks.Add(Task.Run(async () =>
+                {
+                    try
+                    {
+
+                    }
+                }))
+            }
         }
 
     }

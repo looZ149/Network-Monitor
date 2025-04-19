@@ -62,6 +62,12 @@ Got another weird bug with Converting.
 - https://learn.microsoft.com/en-us/dotnet/api/system.net.networkinformation.ping?view=net-9.0
 - Couldnt figure it out so i asked Copilot. 
 
-###Day 6 - AddDevice/Ping DeviceID/Functions coding
-##Resources
+### Day 6 - AddDevice/Ping DeviceID/Functions coding
+## Resources
 - https://learn.microsoft.com/de-de/dotnet/api/microsoft.maui.controls.entry?view=net-maui-9.0
+
+### Day 6 - Get the Macaddress (if possible?)
+	-> Can try via the arp Cache?
+	-> use the ArpLookup lib?
+## Resources
+- https://github.com/georg-jung/ArpLookup

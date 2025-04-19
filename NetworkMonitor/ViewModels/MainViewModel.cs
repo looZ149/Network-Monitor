@@ -52,7 +52,7 @@ namespace NetworkMonitor.ViewModels
             PingAllCommand = new Command(async () => await PingAllDevices());
             AddDeviceCommand = new Command(() => AddDevice());
             PingDeviceIDCommand = new Command(() => PingDeviceID());
-            RescanCommand = new Command(async () => await RescanNetwork());
+            RescanCommand = new Command(() => RescanNetwork());
         }
 
         public async Task PingAllDevices()
@@ -93,18 +93,20 @@ namespace NetworkMonitor.ViewModels
             }
         }
 
-        public async Task RescanNetwork()
+        public void RescanNetwork()
         {
             Task.Run(async () => await scanNetwork.ScanLocalNetwork(scanNetwork.baseip));
         }
 
+        public void GetMacAddress()
+        {
+
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         void OnPropertyChanged(string name) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
-    // Change the access modifier of the `DeviceIP` field in the `MainPage` class to `public`
-    // to resolve the CS0122 error.
-
+    
 
 }
