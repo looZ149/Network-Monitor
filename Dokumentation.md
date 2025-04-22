@@ -71,3 +71,14 @@ Got another weird bug with Converting.
 	-> use the ArpLookup lib?
 ## Resources
 - https://github.com/georg-jung/ArpLookup
+
+### Day 7 - Get the MacAddress
+## Resources
+- https://learn.microsoft.com/en-us/dotnet/api/system.diagnostics.process?view=net-9.0
+- https://stackoverflow.com/questions/12802888/get-a-machines-mac-address-on-the-local-network-from-its-ip-in-c-sharp
+- https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-8.0/ranges
+
+### Day 7 - UI
+## Resources
+- https://learn.microsoft.com/en-us/dotnet/maui/user-interface/controls/button?view=net-maui-9.0#press-and-release-the-button
+- https://stackoverflow.com/questions/78521770/how-do-i-dynamically-change-style-for-button-in-maui

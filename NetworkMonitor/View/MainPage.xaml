@@ -3,67 +3,69 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
             x:Class="NetworkMonitor.MainPage"  
             xmlns:vm="clr-namespace:NetworkMonitor.ViewModels"  
-            xmlns:model="clr-namespace:NetworkMonitor.Models">  
-   <!--View for MVVM -->  
-   <ContentPage.BindingContext>  
-       <vm:MainViewModel />  
-   </ContentPage.BindingContext>  
+            xmlns:model="clr-namespace:NetworkMonitor.Models">
+    <!--View for MVVM -->
+    <ContentPage.BindingContext>
+        <vm:MainViewModel />
+    </ContentPage.BindingContext>
 
 
-               <Grid RowDefinitions="Auto, *"  
-                     ColumnDefinitions="Auto, *"  
-                     BackgroundColor="Black">  
-                   <Image Grid.RowSpan="1"  
-                          Source="logo1.png"  
-                          HeightRequest="150"  
-                          WidthRequest="150" />  
+    <Grid RowDefinitions="Auto, *"  
+          ColumnDefinitions="Auto, *"  
+          BackgroundColor="Black">
+        <Image Grid.RowSpan="1"  
+               Source="logo1.png"  
+               HeightRequest="150"  
+               WidthRequest="150" />
 
-                   <Label Text="Network Devices"  
-                          Grid.Column="1"  
-                          FontSize="28"  
-                          HorizontalOptions="Center"  
-                          VerticalOptions="Center"  
-                          FontAttributes="Bold"  
-                          TextColor="DeepSkyBlue"  
-                          BackgroundColor="Black" />  
+        <Label Text="Network Devices"  
+               Grid.Column="1"  
+               FontSize="28"  
+               HorizontalOptions="Center"  
+               VerticalOptions="Center"  
+               FontAttributes="Bold"  
+               TextColor="DeepSkyBlue"  
+               BackgroundColor="Black" />
 
-                   <Border Grid.Row="1"  
-                           Grid.Column="2"  
-                           Stroke="DeepSkyBlue" />
-                   <!--DEVICES CONTENT-->
-                   <VerticalStackLayout Grid.Row="1" Grid.Column="2">
-                        <CollectionView ItemsSource="{Binding Devices}">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="model:NetworkDevices">
-                                    <VerticalStackLayout Grid.Row="1"  
-                                                         Grid.Column="2"  
-                                                         Padding="10">
-                                            <Label Text="{Binding IPAddress}" FontAttributes="Bold" TextColor="DeepSkyBlue"/>
-                                            <Label Text="{Binding DeviceID, StringFormat='DeviceID: {0}'}" TextColor="DeepSkyBlue" />
-                                            <Label Text="{Binding IsOnline, StringFormat='Online: {0}'}" TextColor="DeepSkyBlue" />
-                                    </VerticalStackLayout>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-                    </VerticalStackLayout>
-                     <!--BUTTONS-->  
-                   <VerticalStackLayout Grid.Row="2" Spacing="10">  
-                       <Button Text="Ping Devices"  
-                               HeightRequest="30"  
-                               Command="{Binding PingAllCommand}"  
-                               BackgroundColor="DeepSkyBlue"  
-                               WidthRequest="120" />
-            
+        <Border Grid.Row="1"  
+                Grid.Column="2"  
+                Stroke="DeepSkyBlue" />
+        <!--DEVICES CONTENT-->
+        <VerticalStackLayout Grid.Row="1" Grid.Column="2">
+            <CollectionView ItemsSource="{Binding Devices}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:NetworkDevices">
+                        <VerticalStackLayout Grid.Row="1"  
+                                             Grid.Column="2"  
+                                             Padding="10">
+                            <Label Text="{Binding IPAddress}" FontAttributes="Bold" TextColor="DeepSkyBlue"/>
+                            <Label Text="{Binding macAddress, StringFormat='MAC: {0}'}" TextColor="DeepSkyBlue" />
+                            <Label Text="{Binding DeviceID, StringFormat='DeviceID: {0}'}" TextColor="DeepSkyBlue" />
+                            <Label Text="{Binding IsOnline, StringFormat='Online: {0}'}" TextColor="DeepSkyBlue" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+        <!--BUTTONS-->
+        <VerticalStackLayout Grid.Row="2" Spacing="10">
+            <Button Text="Ping Devices"  
+                    HeightRequest="30"  
+                    Command="{Binding PingAllCommand}"  
+                    BackgroundColor="DeepSkyBlue"  
+                    WidthRequest="120" />
+
             <Entry x:Name="DeviceIP" Background="LightSkyBlue"
                   Text="{Binding DeviceIP}"
                   Placeholder="Device IP"
                    PlaceholderColor="Black"
                    VerticalTextAlignment="Center"/>
+
             <Button Text="Add Device IP"  
-                               HeightRequest="30"  
-                               BackgroundColor="DeepSkyBlue"  
-                               WidthRequest="120" 
-                               Command="{Binding AddDeviceCommand}"/>
+                    HeightRequest="30"  
+                    BackgroundColor="DeepSkyBlue"  
+                    WidthRequest="120" 
+                    Command="{Binding AddDeviceCommand}" />
 
             <Entry x:Name="DeviceID"
                    Text="{Binding DeviceID}"
@@ -72,16 +74,17 @@
                    PlaceholderColor="Black"
                    VerticalTextAlignment="Center"/>
             <Button Text="Ping DeviceID"  
-                                HeightRequest="30"  
-                                BackgroundColor="DeepSkyBlue"  
-                                WidthRequest="120" 
+                    HeightRequest="30"  
+                    BackgroundColor="DeepSkyBlue"  
+                    WidthRequest="120" 
                     Command="{Binding PingDeviceIDCommand}"/>
+
             <Button Text="Rescan"
                     HeightRequest="30"
                     BackgroundColor="DeepSkyBlue"
                     WidthRequest="120"
                     Command="{Binding RescanCommand}"/>
 
-        </VerticalStackLayout>  
-               </Grid>  
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>

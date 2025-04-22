@@ -55,7 +55,7 @@ namespace NetworkMonitor.ViewModels
             RescanCommand = new Command(() => RescanNetwork());
         }
 
-        public async Task PingAllDevices()
+        public async Task PingAllDevices() 
         {
             foreach (var device in Devices)
             {
@@ -93,14 +93,10 @@ namespace NetworkMonitor.ViewModels
             }
         }
 
-        public void RescanNetwork()
+        public void RescanNetwork() 
         {
-            Task.Run(async () => await scanNetwork.ScanLocalNetwork(scanNetwork.baseip));
-        }
-
-        public void GetMacAddress()
-        {
-
+            Devices = Task.Run(() => scanNetwork.ScanLocalNetwork(scanNetwork.baseip)).Result;
+            OnPropertyChanged(nameof(Devices));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
