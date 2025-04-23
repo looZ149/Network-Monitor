@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 
 
@@ -14,7 +16,14 @@ namespace NetworkMonitor.Functions
         public string? localip;
         public string? baseip;
         public int count = 0;
-        
+
+
+        //Function gets called on Launch - Gets all active devices and populates the list with ips
+        public void GetIP()
+        {
+            localip = LocalIP();
+            baseip = string.Join('.', localip.Split('.').Take(3));
+        }
 
         //dont need as async task cuz we will run this function on every start of the App
         //should be rather fast + we execute it on the start so.. should be fine?
@@ -30,6 +39,73 @@ namespace NetworkMonitor.Functions
                 }
             }
             throw new Exception("Couldnt find local ip"); // In case we cant find the local ip, throw exception with a msg, still continue
+        }
+
+        public string CutStringToCompany(string body)
+        {
+            //Maybe "a bit" inconvenient but hey... it works
+            //Can shorten it but 2lazy rn
+            string[] split = body.Split("name");
+            string[] split2 = split[1].Split("address");
+            string[] split3 = split2[0].Split('"');
+
+            return split3[2];
+        }
+
+
+        public async Task<string> MacLookUp(string macAddress)
+        {
+            var client = new HttpClient();
+            var query = macAddress.Replace(":", "%3a"); //Should do the job to Format the Address to be ready to query it in the URl
+            string result;
+            var request = new HttpRequestMessage
+            {
+
+                Method = HttpMethod.Get,
+                RequestUri = new Uri($"https://mac-address-lookup1.p.rapidapi.com/static_rapid/mac_lookup/?query={query}"),
+                Headers =
+                {
+                    { "x-rapidapi-key", "d9c2915098mshd5a371c2b843acbp12eb71jsn59379032f983" },
+                    { "x-rapidapi-host", "mac-address-lookup1.p.rapidapi.com" },
+                },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+
+                result = CutStringToCompany(body);
+            }
+            await Task.WhenAll();
+            return result;
+        }
+
+        public string GetMacAddress(string ipAddress) //Cant get own MAC??
+        {
+            string MacAddress = string.Empty;
+            Process process = new Process();
+            process.StartInfo.FileName = "arp";
+            process.StartInfo.Arguments = "-a " + ipAddress;
+            process.StartInfo.UseShellExecute = false; // Dont need the shell  
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.CreateNoWindow = true; // Dont need a window, we dump the result into a var  
+
+            process.Start();
+            var Output = process.StandardOutput.ReadToEnd();
+            string[] outputStrings = Output.Split('-');
+            if (outputStrings.Length >= 6)
+            {
+                MacAddress = outputStrings[3][^2..] // ^2 - Get 2 last characters - ^ start from end
+                            + "-" + outputStrings[4] + "-" + outputStrings[5] + "-" + outputStrings[6] + "-" + outputStrings[7]
+                            + "-" + outputStrings[8][..2]; // get 2 first chars
+
+            }
+            else
+            {
+                return "empty";
+            }
+
+            return MacAddress;
         }
 
         //Quantum code error
@@ -59,10 +135,14 @@ namespace NetworkMonitor.Functions
                         if (reply.Status == IPStatus.Success)
                         {
                             var MacAddress = GetMacAddress(ip);
+                            var Manufacturer = MacLookUp(MacAddress); // Querys to fast, need to give it a 1sec delay
                             //Lock the list so we ensure only one Task adds his result to it.
                             lock (devicesOnline)
-                            {
-                                devicesOnline.Add(new NetworkDevices { IPAddress = ip, IsOnline = true, DeviceID = count, macAddress = MacAddress });
+                            {   
+                                //Adds the devices before the Manufacturer got found
+                                //Need to wait for the function to be finished first
+                                devicesOnline.Add(new NetworkDevices { IPAddress = ip, IsOnline = true, 
+                                                      DeviceID = count, macAddress = MacAddress });
                             }
                             count++;
                         }
@@ -75,40 +155,6 @@ namespace NetworkMonitor.Functions
             }
             await Task.WhenAll(tasks);
             return devicesOnline;
-        }
-
-        //Function gets called on Launch - Gets all active devices and populates the list with ips
-        public void GetIP()
-        {
-            localip = LocalIP();
-            baseip = string.Join('.', localip.Split('.').Take(3));
-        }
-
-        public string GetMacAddress(string ipAddress) //Cant get own MAC??
-        {
-            string MacAddress = string.Empty;
-            Process process = new Process();
-            process.StartInfo.FileName = "arp";
-            process.StartInfo.Arguments = "-a " + ipAddress;
-            process.StartInfo.UseShellExecute = false; // Dont need the shell  
-            process.StartInfo.RedirectStandardOutput = true;
-            process.StartInfo.CreateNoWindow = true; // Dont need a window, we dump the result into a var  
-
-            process.Start();
-            var Output = process.StandardOutput.ReadToEnd();
-            string[] outputStrings = Output.Split('-');
-            if (outputStrings.Length >= 6)
-            {
-                MacAddress = outputStrings[3][^2..] // ^2 - Get 2 last characters - ^ start from end
-                            + "-" + outputStrings[4] + "-" + outputStrings[5] + "-" + outputStrings[6] + "-" + outputStrings[7]
-                            + "-" + outputStrings[8][..2]; // get 2 first chars
-            }
-            else
-            {
-                return "empty";
-            }
-
-            return MacAddress;
         }
     }
 }

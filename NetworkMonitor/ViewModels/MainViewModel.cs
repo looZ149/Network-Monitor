@@ -89,6 +89,7 @@ namespace NetworkMonitor.ViewModels
             if(reply.Status != IPStatus.Success)
             {
                 Devices[id].IsOnline = false;
+                OnPropertyChanged(nameof(Devices));
                 return;
             }
         }

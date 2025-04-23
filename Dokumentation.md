@@ -82,3 +82,9 @@ Got another weird bug with Converting.
 ## Resources
 - https://learn.microsoft.com/en-us/dotnet/maui/user-interface/controls/button?view=net-maui-9.0#press-and-release-the-button
 - https://stackoverflow.com/questions/78521770/how-do-i-dynamically-change-style-for-button-in-maui
+
+### Day 8 - Get Manufacturer from MAC
+## Resources
+- https://dnschecker.org/mac-lookup.php - use the API to query the online Service instead of getting a local copy?
+	-> Already did file handling but never used an API so.. Lets use the API
+- https://learn.microsoft.com/en-us/dotnet/api/system.string.replace?view=net-9.0

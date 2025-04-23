@@ -10,6 +10,7 @@ namespace NetworkMonitor.Models
         public int DeviceID { get; set; }
         public string? IPAddress { get; set; }
         public string? macAddress { get; set; }
+        public string? Manufactur { get; set; }
         
 
         bool _isOnline;
