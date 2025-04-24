@@ -40,20 +40,20 @@
 
 -> Save every device in a ObserveableObject so we can use INotifyPropertyChange for the Online Status
 	
-### Day 2 - UI - Bugfixing the Lists cause they do not get the data properly
+# Day 2 - UI - Bugfixing the Lists cause they do not get the data properly
 
 - Noticed while working with the UI that the Lists doesnt work properly 
 - Need to rewrite the function for scanning the network
 	-> Need to call it in MainViewModel so i get the data there
 		-> Need to return a list of strings of type NetworkDevices
 
-### Day 3 - Work on the UI
+# Day 3 - Work on the UI
 ## Resources
 - https://www.youtube.com/@dotnet
 
-### Day 4 - Work on the UI + Code
+# Day 4 - Work on the UI + Code
 
-### Day 5 - Fixing code
+# Day 5 - Fixing code
 Encountered a weird bug: When debugging with a breakpoint, code works as intendet.
 Without a breakpoint, it doesnt work at all. (Probably need to add some sort of timeout/sleep into the function?)
 Got another weird bug with Converting.
@@ -62,29 +62,34 @@ Got another weird bug with Converting.
 - https://learn.microsoft.com/en-us/dotnet/api/system.net.networkinformation.ping?view=net-9.0
 - Couldnt figure it out so i asked Copilot. 
 
-### Day 6 - AddDevice/Ping DeviceID/Functions coding
+# Day 6 - AddDevice/Ping DeviceID/Functions coding
 ## Resources
 - https://learn.microsoft.com/de-de/dotnet/api/microsoft.maui.controls.entry?view=net-maui-9.0
 
-### Day 6 - Get the Macaddress (if possible?)
+# Day 6 - Get the Macaddress (if possible?)
 	-> Can try via the arp Cache?
 	-> use the ArpLookup lib?
 ## Resources
 - https://github.com/georg-jung/ArpLookup
 
-### Day 7 - Get the MacAddress
+# Day 7 - Get the MacAddress
 ## Resources
 - https://learn.microsoft.com/en-us/dotnet/api/system.diagnostics.process?view=net-9.0
 - https://stackoverflow.com/questions/12802888/get-a-machines-mac-address-on-the-local-network-from-its-ip-in-c-sharp
 - https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-8.0/ranges
 
-### Day 7 - UI
+# Day 7 - UI
 ## Resources
 - https://learn.microsoft.com/en-us/dotnet/maui/user-interface/controls/button?view=net-maui-9.0#press-and-release-the-button
 - https://stackoverflow.com/questions/78521770/how-do-i-dynamically-change-style-for-button-in-maui
 
-### Day 8 - Get Manufacturer from MAC
+# Day 8 - Get Manufacturer from MAC
 ## Resources
 - https://dnschecker.org/mac-lookup.php - use the API to query the online Service instead of getting a local copy?
 	-> Already did file handling but never used an API so.. Lets use the API
 - https://learn.microsoft.com/en-us/dotnet/api/system.string.replace?view=net-9.0
+
+# Day 9 - MAC/UI Stuff
+## Resources
+- https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/data-binding/multibinding?view=net-maui-8.0
+- https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/data-binding/string-formatting?view=net-maui-9.0
