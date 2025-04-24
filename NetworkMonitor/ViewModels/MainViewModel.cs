@@ -19,10 +19,12 @@ namespace NetworkMonitor.ViewModels
         public ICommand AddDeviceCommand { get; }
         public ICommand PingDeviceIDCommand { get; }
         public ICommand RescanCommand { get; }
+        public ICommand GetManufactorCommand { get; }
 
         
         string? deviceIP;
         string? deviceID;
+        //string? mac;
         public string? DeviceIP
         {
             get => deviceIP;
@@ -41,6 +43,15 @@ namespace NetworkMonitor.ViewModels
                 OnPropertyChanged(nameof(DeviceID));
             }
         }
+        //public string? Mac
+        //{
+        //    get => mac;
+        //    set
+        //    {
+        //        mac = value;
+        //        OnPropertyChanged(nameof(Mac));
+        //    }
+        //}
         
 
         public MainViewModel()
@@ -53,6 +64,14 @@ namespace NetworkMonitor.ViewModels
             AddDeviceCommand = new Command(() => AddDevice());
             PingDeviceIDCommand = new Command(() => PingDeviceID());
             RescanCommand = new Command(() => RescanNetwork());
+        }
+
+        public async Task GetManufactor()
+        {
+            int id = Convert.ToInt32(DeviceID);
+            string? macAddress = Devices[id].macAddress;
+            string manu = await scanNetwork.MacLookUp(macAddress);
+            Devices[id].Manufactor = manu;
         }
 
         public async Task PingAllDevices() 

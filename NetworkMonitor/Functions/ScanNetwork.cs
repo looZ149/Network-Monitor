@@ -44,7 +44,7 @@ namespace NetworkMonitor.Functions
         public string CutStringToCompany(string body)
         {
             //Maybe "a bit" inconvenient but hey... it works
-            //Can shorten it but 2lazy rn
+            //Can shorten it (probably) but 2lazy rn
             string[] split = body.Split("name");
             string[] split2 = split[1].Split("address");
             string[] split3 = split2[0].Split('"');
@@ -76,7 +76,7 @@ namespace NetworkMonitor.Functions
 
                 result = CutStringToCompany(body);
             }
-            await Task.WhenAll();
+            
             return result;
         }
 
@@ -135,7 +135,7 @@ namespace NetworkMonitor.Functions
                         if (reply.Status == IPStatus.Success)
                         {
                             var MacAddress = GetMacAddress(ip);
-                            var Manufacturer = MacLookUp(MacAddress); // Querys to fast, need to give it a 1sec delay
+                            //var Manufacturer = await MacLookUp(MacAddress); // Querys to fast, need to give it a 1sec delay 
                             //Lock the list so we ensure only one Task adds his result to it.
                             lock (devicesOnline)
                             {   

@@ -38,11 +38,30 @@
                         <VerticalStackLayout Grid.Row="1"  
                                              Grid.Column="2"  
                                              Padding="10">
+                            <!--<Label VerticalOptions="Center" TextColor="DeepSkyBlue" >
+                                <Label.Text>
+                                    <MultiBinding StringFormat="{}IP: {0}">
+                                        <Binding Path="IPAddress" />
+                                    </MultiBinding>
+                                    <MultiBinding StringFormat="{}MAC: {0}" >
+                                        <Binding Path="macAddress"/>
+                                    </MultiBinding>
+                                    <MultiBinding StringFormat="{}ID: {0}" >
+                                        <Binding Path="DeviceID"/>
+                                    </MultiBinding>
+                                    <MultiBinding StringFormat="{}Online: {0}">
+                                        <Binding Path="IsOnline"/>
+                                    </MultiBinding>
+                                    <MultiBinding StringFormat="{}Manufactur: {0}">
+                                        <Binding Path="Manufactur"/>
+                                    </MultiBinding>
+                                </Label.Text>
+                            </Label>-->
                             <Label Text="{Binding IPAddress}" FontAttributes="Bold" TextColor="DeepSkyBlue"/>
                             <Label Text="{Binding macAddress, StringFormat='MAC: {0}'}" TextColor="DeepSkyBlue" />
-                            <Label Text="{Binding Manufactur, StringFormat='Hersteller: {0}'}" TextColor="DeepSkyBlue" />
                             <Label Text="{Binding DeviceID, StringFormat='DeviceID: {0}'}" TextColor="DeepSkyBlue" />
                             <Label Text="{Binding IsOnline, StringFormat='Online: {0}'}" TextColor="DeepSkyBlue" />
+                            <Label Text="{Binding Manufactur, StringFormat='Hersteller: {0}'}" TextColor="DeepSkyBlue" />
                         </VerticalStackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
@@ -85,6 +104,12 @@
                     BackgroundColor="DeepSkyBlue"
                     WidthRequest="120"
                     Command="{Binding RescanCommand}"/>
+
+            <Button Text="Manufactors"
+                    HeightRequest="30" 
+                    WidthRequest="120"
+                    BackgroundColor="DeepSkyBlue"
+                    Command="{Binding GetManufactorCommand}" />
 
         </VerticalStackLayout>
     </Grid>
