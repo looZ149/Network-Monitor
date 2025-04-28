@@ -62,7 +62,7 @@ namespace NetworkMonitor.ViewModels
                                                                                                //else we get an converting error
             PingAllCommand = new Command(async () => await PingAllDevices());
             AddDeviceCommand = new Command(() => AddDevice());
-            PingDeviceIDCommand = new Command(() => PingDeviceID());
+            PingDeviceIDCommand = new Command(async () => await PingDeviceID());
             RescanCommand = new Command(() => RescanNetwork());
             GetManufactorCommand = new Command(() => GetManufactor());
         }
@@ -95,7 +95,7 @@ namespace NetworkMonitor.ViewModels
             if (string.IsNullOrWhiteSpace(deviceID))
                 return;
             int id = Convert.ToInt32(DeviceID);
-            string ip = Devices[id].IPAddress;
+            string? ip = Devices[id].IPAddress;
             using Ping ping = new Ping();
             var reply = await ping.SendPingAsync(ip, 100);
             if(reply.Status != IPStatus.Success)
@@ -112,11 +112,10 @@ namespace NetworkMonitor.ViewModels
             OnPropertyChanged(nameof(Devices));
         }
 
-        //Doesnt work??
-        //Sometimes getting an out of bounds
-        //Doesnt update the UI
         public void GetManufactor()
         {
+            if (string.IsNullOrWhiteSpace(IDForLookup))
+                return;
             int id = Convert.ToInt32(IDForLookup);
             string? macAddress = Devices[id].macAddress;
             string manu = Task.Run(() => scanNetwork.MacLookUp(macAddress)).Result;

@@ -32,24 +32,19 @@
                 Stroke="DeepSkyBlue" />
         <!--DEVICES CONTENT-->  
         <VerticalStackLayout Grid.Row="1" Grid.Column="2">
-            <VerticalStackLayout.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding GetManufactorCommand}"/>
-            </VerticalStackLayout.GestureRecognizers>
             <CollectionView ItemsSource="{Binding Devices}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:NetworkDevices">
                         <VerticalStackLayout Grid.Row="1"  
                                              Grid.Column="2"  
                                              Padding="10">
-                          
 
                             <Label Text="{Binding IPAddress}" FontAttributes="Bold" TextColor="DeepSkyBlue"/>
                             <Label Text="{Binding macAddress, StringFormat='MAC: {0}'}" TextColor="DeepSkyBlue" />
                             <Label Text="{Binding DeviceID, StringFormat='DeviceID: {0}'}" TextColor="DeepSkyBlue" />
                             <Label Text="{Binding IsOnline, StringFormat='Online: {0}'}" TextColor="DeepSkyBlue" />
                             <Label Text="{Binding ManuFactor, StringFormat='Hersteller: {0}'}" TextColor="DeepSkyBlue" />
-                           
-
+                            
                         </VerticalStackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
