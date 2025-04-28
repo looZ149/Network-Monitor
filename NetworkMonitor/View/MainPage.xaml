@@ -47,7 +47,7 @@
                             <Label Text="{Binding macAddress, StringFormat='MAC: {0}'}" TextColor="DeepSkyBlue" />
                             <Label Text="{Binding DeviceID, StringFormat='DeviceID: {0}'}" TextColor="DeepSkyBlue" />
                             <Label Text="{Binding IsOnline, StringFormat='Online: {0}'}" TextColor="DeepSkyBlue" />
-                            <Label Text="{Binding Manufactor, StringFormat='Hersteller: {0}'}" TextColor="DeepSkyBlue" />
+                            <Label Text="{Binding ManuFactor, StringFormat='Hersteller: {0}'}" TextColor="DeepSkyBlue" />
                            
 
                         </VerticalStackLayout>

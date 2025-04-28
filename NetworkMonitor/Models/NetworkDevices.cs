@@ -10,7 +10,6 @@ namespace NetworkMonitor.Models
         public int DeviceID { get; set; }
         public string? IPAddress { get; set; }
         public string? macAddress { get; set; }
-        public string? Manufactor { get; set; }
         
 
         bool _isOnline;
@@ -24,6 +23,20 @@ namespace NetworkMonitor.Models
                     return;
                 _isOnline = value;
                 OnPropertyChanged(nameof(IsOnline));
+            }
+        }
+
+        string? _manuFactor;
+
+        public string ManuFactor
+        {
+            get => _manuFactor;
+            set
+            {
+                if (_manuFactor == value) 
+                    return;
+                _manuFactor = value;
+                OnPropertyChanged(nameof(ManuFactor));
             }
         }
 

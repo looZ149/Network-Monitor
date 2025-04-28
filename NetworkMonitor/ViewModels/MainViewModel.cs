@@ -112,19 +112,24 @@ namespace NetworkMonitor.ViewModels
             OnPropertyChanged(nameof(Devices));
         }
 
+        //Doesnt work??
+        //Sometimes getting an out of bounds
+        //Doesnt update the UI
         public void GetManufactor()
         {
             int id = Convert.ToInt32(IDForLookup);
             string? macAddress = Devices[id].macAddress;
             string manu = Task.Run(() => scanNetwork.MacLookUp(macAddress)).Result;
-            Devices[id].Manufactor = manu;
-            OnPropertyChanged(nameof(Devices));
+            Devices[id].ManuFactor = manu;
 
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        void OnPropertyChanged(string name) =>
+        void OnPropertyChanged(string name)
+        {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+            
     }
     
 
