@@ -15,7 +15,7 @@ namespace NetworkMonitor.Functions
     {
         public string? localip;
         public string? baseip;
-        public int count = 0;
+        public int count = 1;
 
 
         //Function gets called on Launch - Gets all active devices and populates the list with ips
@@ -30,6 +30,19 @@ namespace NetworkMonitor.Functions
         public static string LocalIP() 
         {
             var host = Dns.GetHostEntry(Dns.GetHostName()); // Get IPHostEntry -> Contains HostName, Addresslist
+
+
+            //If we have a VM installed, we got atleast 1 other Ethernet adapter, so we get a wrong result here
+            //1st entry that matches the IF is NOT our routers ip
+            //Solutions: Skip 1st entry, return 2nd?
+            //           Hardcode 192.168.178 as baseip? Probably worst solution tbh
+            //What if the 1st entry being wrong is just in MY case??
+            //Solutions: We could add all IPv4's into a list, and iterate trough all "baseips"
+            //In my case: 510 pings
+            //Startup would take twice as long as before..
+            //Any other idea to identify the "real" baseip?
+            //Nop
+            //Fixed in the ScanLocalNetwork function. Tbf, to lazy to figure out another solution rn. Just hardcoded it.
 
             foreach(var ip in host.AddressList)
             {
@@ -115,15 +128,22 @@ namespace NetworkMonitor.Functions
 
         public async Task<ObservableCollection<NetworkDevices>> ScanLocalNetwork(string baseip)
         {
-            
+            count = 0; //Reset the count to 0 on each execution. Otherwise Rescanning the Network displays wrong IDs in the UI
+
             var devicesOnline = new ObservableCollection<NetworkDevices>();
             var tasks = new List<Task>(); // Create a list of Tasks to ping multiple IP's at once
                                           //Ping is not "thread safe" which leads to unexpected behavior. Means it can not be safely used by multiple threads
                                           //Every task need to use their own Ping function to make it work properly
                                           //Since its a share Instance of the ping, its causing race conditions because every task executes it on their own
-            
+
+
+            if (baseip != "192.168.178")
+                baseip = "192.168.178";
+
+
             for (int i = 0; i < 255; i++)
             {
+
                 string ip = $"{baseip}.{i}";
                 tasks.Add(Task.Run(async () => //Run multiple tasks at the same time(async)
                 {

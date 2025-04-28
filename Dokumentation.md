@@ -93,3 +93,14 @@ Got another weird bug with Converting.
 ## Resources
 - https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/data-binding/multibinding?view=net-maui-8.0
 - https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/data-binding/string-formatting?view=net-maui-9.0
+
+# Day 10 - MAC/UI Stuff
+
+# Day 11 - Get LocalIP
+
+Installed a VM, now the function gets the IP from the Ethernet adapter 2. Need to ensure we get the IP from Adapter 1.
+
+## Resources
+- https://learn.microsoft.com/en-us/dotnet/api/system.net.networkinformation.networkinterface?view=net-9.0
+
+## Day 11 - Fix the MacLookUp function

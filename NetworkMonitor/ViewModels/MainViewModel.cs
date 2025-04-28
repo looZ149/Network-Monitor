@@ -24,7 +24,7 @@ namespace NetworkMonitor.ViewModels
         
         string? deviceIP;
         string? deviceID;
-        //string? mac;
+        string? idForLookup;
         public string? DeviceIP
         {
             get => deviceIP;
@@ -43,16 +43,16 @@ namespace NetworkMonitor.ViewModels
                 OnPropertyChanged(nameof(DeviceID));
             }
         }
-        //public string? Mac
-        //{
-        //    get => mac;
-        //    set
-        //    {
-        //        mac = value;
-        //        OnPropertyChanged(nameof(Mac));
-        //    }
-        //}
-        
+        public string? IDForLookup
+        {
+            get => idForLookup;
+            set
+            {
+                idForLookup = value;
+                OnPropertyChanged(nameof(IDForLookup));
+            }
+        }
+
 
         public MainViewModel()
         {
@@ -64,14 +64,7 @@ namespace NetworkMonitor.ViewModels
             AddDeviceCommand = new Command(() => AddDevice());
             PingDeviceIDCommand = new Command(() => PingDeviceID());
             RescanCommand = new Command(() => RescanNetwork());
-        }
-
-        public async Task GetManufactor()
-        {
-            int id = Convert.ToInt32(DeviceID);
-            string? macAddress = Devices[id].macAddress;
-            string manu = await scanNetwork.MacLookUp(macAddress);
-            Devices[id].Manufactor = manu;
+            GetManufactorCommand = new Command(() => GetManufactor());
         }
 
         public async Task PingAllDevices() 
@@ -117,6 +110,16 @@ namespace NetworkMonitor.ViewModels
         {
             Devices = Task.Run(() => scanNetwork.ScanLocalNetwork(scanNetwork.baseip)).Result;
             OnPropertyChanged(nameof(Devices));
+        }
+
+        public void GetManufactor()
+        {
+            int id = Convert.ToInt32(IDForLookup);
+            string? macAddress = Devices[id].macAddress;
+            string manu = Task.Run(() => scanNetwork.MacLookUp(macAddress)).Result;
+            Devices[id].Manufactor = manu;
+            OnPropertyChanged(nameof(Devices));
+
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
