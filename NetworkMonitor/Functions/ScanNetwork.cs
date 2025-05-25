@@ -4,8 +4,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
+
 
 
 
@@ -78,7 +77,7 @@ namespace NetworkMonitor.Functions
                 RequestUri = new Uri($"https://mac-address-lookup1.p.rapidapi.com/static_rapid/mac_lookup/?query={query}"),
                 Headers =
                 {
-                    { "x-rapidapi-key", "d9c2915098mshd5a371c2b843acbp12eb71jsn59379032f983" },
+                    { "x-rapidapi-key", "d9c2915098mshd5a371c2b843acbp12eb71jsn59379032f983" }, //No worries the API key was deleted the moment i pushed the update onto github.
                     { "x-rapidapi-host", "mac-address-lookup1.p.rapidapi.com" },
                 },
             };
